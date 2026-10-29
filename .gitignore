@@ -1,0 +1,25 @@
+# Runtime data (keep storage/.htaccess)
+/storage/*.json
+
+# Dependencies
+/vendor/
+/node_modules/
+
+# Environment / secrets
+.env
+.env.*
+
+# Logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# IDE / editor
+.idea/
+.vscode/
+*.swp
+*.sublime-project
+*.sublime-workspace
