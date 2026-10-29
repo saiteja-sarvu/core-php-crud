@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "name": "Administrator",
+        "email": "admin@example.com",
+        "password": "$2y$10$LwrbJrJ3Icj/Z5050SnZnO7gc9urUlAVOXnu0vKQ9Z1l388iRB/GS"
+    },
+    {
+        "id": 2,
+        "name": "Saiteja Sarvu",
+        "email": "saitejas@cnkonline.in",
+        "password": "$2y$10$dXgfKfXNABYTbFCIkD3X3uRo/PxNhv3fJmTayvDRt.iRYAU6pOsUK"
+    }
+]
