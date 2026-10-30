@@ -27,7 +27,7 @@ $initial = strtoupper(substr((string)$userName, 0, 1));
     <div class="side-label">Workspace</div>
     <nav class="sidebar-nav">
         <a class="side-link <?= $activeMenu === 'dashboard' ? 'active' : '' ?>" href="<?= escape(url('modules/dashboard/index.php')) ?>"><i class="bi bi-grid-1x2"></i> Dashboard</a>
-        <a class="side-link <?= $activeMenu === 'employees' ? 'active' : '' ?>" href="<?= escape(url('modules/employees/index.php')) ?>"><i class="bi bi-person-lines-fill"></i> Employees</a>
+        <a class="side-link <?= $activeMenu === 'products' ? 'active' : '' ?>" href="<?= escape(url('modules/products/index.php')) ?>"><i class="bi bi-box-seam"></i> Products</a>
     </nav>
     <div class="side-label">Account</div>
     <nav class="sidebar-nav">

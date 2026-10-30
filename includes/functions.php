@@ -71,14 +71,54 @@ function write_json_file(string $path, array $data): bool
     return file_put_contents($path, $json, LOCK_EX) !== false;
 }
 
-function read_employees(): ?array
+function read_products(): ?array
 {
-    return read_json_file(EMPLOYEE_FILE);
+    return read_json_file(PRODUCT_FILE);
 }
 
-function save_employees(array $employees): bool
+function save_products(array $products): bool
 {
-    return write_json_file(EMPLOYEE_FILE, $employees);
+    return write_json_file(PRODUCT_FILE, $products);
+}
+
+function product_categories(): array
+{
+    return ['Electronics', 'Clothing', 'Groceries', 'Furniture', 'Books', 'Toys', 'Other'];
+}
+
+/** Validates product form input; returns [cleanData, errors]. */
+function validate_product(array $input): array
+{
+    $errors = [];
+    $name = trim((string)($input['name'] ?? ''));
+    $category = trim((string)($input['category'] ?? ''));
+    $price = trim((string)($input['price'] ?? ''));
+    $quantity = trim((string)($input['quantity'] ?? ''));
+    $description = trim((string)($input['description'] ?? ''));
+
+    if ($name === '') $errors['name'] = 'Product name is required.';
+    elseif (mb_strlen($name) > 100) $errors['name'] = 'Product name must be 100 characters or fewer.';
+
+    if ($category === '') $errors['category'] = 'Category is required.';
+    elseif (!in_array($category, product_categories(), true)) $errors['category'] = 'Select a valid category.';
+
+    if ($price === '') $errors['price'] = 'Price is required.';
+    elseif (!is_numeric($price) || !is_finite((float)$price)) $errors['price'] = 'Enter a valid price.';
+    elseif ((float)$price < 0) $errors['price'] = 'Price cannot be negative.';
+
+    if ($quantity === '') $errors['quantity'] = 'Quantity is required.';
+    elseif (filter_var($quantity, FILTER_VALIDATE_INT) === false) $errors['quantity'] = 'Quantity must be a whole number.';
+    elseif ((int)$quantity < 0) $errors['quantity'] = 'Quantity cannot be negative.';
+
+    if (mb_strlen($description) > 500) $errors['description'] = 'Description must be 500 characters or fewer.';
+
+    return [[
+        'name' => $name,
+        'category' => $category,
+        'price' => (float)$price,
+        'quantity' => (int)$quantity,
+        'description' => $description,
+    ], $errors];
 }
 
 function read_users(): ?array

@@ -2,17 +2,6 @@
 require_once __DIR__ . '/../../includes/auth.php';
 require_login();
 
-$employees = read_employees();
-if ($employees === null) {
-    $employees = [];
-    set_flash('danger', 'Unable to read employee records. Check storage/employees.json.');
-}
-$totalSalary = 0;
-foreach ($employees as $employee) $totalSalary += (float)($employee['salary'] ?? 0);
-$recent = $employees;
-usort($recent, fn($a, $b) => (int)($b['id'] ?? 0) <=> (int)($a['id'] ?? 0));
-$recent = array_slice($recent, 0, 5);
-
 $pageTitle = 'Dashboard';
 $activeMenu = 'dashboard';
 require __DIR__ . '/../../includes/header.php';
@@ -23,7 +12,7 @@ require __DIR__ . '/../../includes/header.php';
         <h1 class="h2 page-title mb-1">Dashboard</h1>
         <p class="muted mb-0">Here is an overview of workspace.</p>
     </div>
-    <!-- <a href="<?= escape(url('modules/employees/create.php')) ?>" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Add employee</a> -->
+    <!-- <a href="</?= escape(url('modules/employees/create.php')) ?>" class="btn btn-primary"><i class="bi bi-plus-lg me-2"></i>Add employee</a> -->
 </div>
 
 <!--

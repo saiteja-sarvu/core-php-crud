@@ -14,14 +14,13 @@ MODULES
 - modules/auth/login.php: Login
 - modules/auth/logout.php: Logout
 - modules/dashboard/index.php: Dashboard
-- modules/employees/index.php: Employee list
-- modules/employees/create.php: Add employee
-- modules/employees/edit.php: Edit employee
-- modules/employees/delete.php: Delete employee
+- modules/products/index.php: Product listing (Add/Edit modal)
+- modules/products/save.php: Add/Edit product (JSON endpoint)
+- modules/products/delete.php: Delete product
 
 STORAGE
 - storage/users.json
-- storage/employees.json
+- storage/products.json
 
 IMPORTANT
 - This is a learning/demo app using JSON file storage, not a production-grade database.
