@@ -61,7 +61,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <div class="col-md-6 login-art">
         <div>
             <div class="d-flex align-items-center fw-bold fs-4">
-                <span class="brand-mark"><i class="bi bi-people-fill"></i></span>Employee-Panel
+                <span class="brand-mark"><i class="bi bi-people-fill"></i></span>Admin-Panel
             </div>
         </div>
     </div>
@@ -91,7 +91,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <button type="submit" class="btn btn-primary w-100">Sign in <i class="bi bi-arrow-right ms-1"></i></button>
         </form>
 
-        <p class="text-secondary small mt-4 mb-0">Employee-Panel · Core PHP</p>
+        <p class="text-secondary small mt-4 mb-0">Admin-Panel</p>
     </div>
 </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>

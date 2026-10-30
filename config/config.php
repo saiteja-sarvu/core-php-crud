@@ -2,7 +2,7 @@
 declare(strict_types=1);
 
 // Central configuration for the application.
-define('APP_NAME', 'Project-Panel');
+define('APP_NAME', 'Admin-Panel');
 define('BASE_URL', '/core-php-crud-modular');
 
 define('STORAGE_DIR', dirname(__DIR__) . '/storage');

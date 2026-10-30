@@ -2,41 +2,37 @@
 require_once __DIR__ . '/../../includes/auth.php';
 require_login();
 
-header('Content-Type: application/json');
-
-function json_response(array $payload, int $status = 200): void
-{
-    http_response_code($status);
-    echo json_encode($payload);
-    exit;
-}
-
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    json_response(['success' => false, 'message' => 'Invalid request.'], 405);
+    set_flash('warning', 'Invalid request.');
+    redirect('modules/users/index.php');
 }
 if (!verify_csrf()) {
-    json_response(['success' => false, 'message' => 'Your session expired. Refresh the page and try again.'], 403);
+    set_flash('danger', 'Your session expired. Please try again.');
+    redirect('modules/users/index.php');
 }
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 if (!$id || $id < 1) {
-    json_response(['success' => false, 'message' => 'Invalid user ID.'], 422);
+    set_flash('danger', 'Invalid user ID.');
+    redirect('modules/users/index.php');
 }
 if ((int)(current_user()['id'] ?? 0) === $id) {
-    json_response(['success' => false, 'message' => 'You cannot delete your own account.'], 422);
+    set_flash('warning', 'You cannot delete your own account.');
+    redirect('modules/users/index.php');
 }
 $users = read_users();
 if ($users === null) {
-    json_response(['success' => false, 'message' => 'Unable to read user records.'], 500);
+    set_flash('danger', 'Unable to read user records.');
+    redirect('modules/users/index.php');
 }
 $found = null;
 foreach ($users as $index => $u) {
     if ((int)($u['id'] ?? 0) === $id) { $found = $index; break; }
 }
 if ($found === null) {
-    json_response(['success' => false, 'message' => 'User not found.'], 404);
+    set_flash('warning', 'User not found.');
+    redirect('modules/users/index.php');
 }
 unset($users[$found]);
-if (!save_users($users)) {
-    json_response(['success' => false, 'message' => 'Could not delete user. Check file permissions.'], 500);
-}
-json_response(['success' => true, 'message' => 'User deleted successfully.']);
+if (save_users($users)) set_flash('success', 'User deleted successfully.');
+else set_flash('danger', 'Could not delete user. Check file permissions.');
+redirect('modules/users/index.php');
