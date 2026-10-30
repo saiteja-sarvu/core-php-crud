@@ -50,5 +50,4 @@ if (!save_products($products)) {
     json_response(['success' => false, 'message' => 'Could not save product data. Check file permissions.'], 500);
 }
 
-set_flash('success', $message);
 json_response(['success' => true, 'message' => $message]);

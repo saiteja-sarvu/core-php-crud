@@ -2,33 +2,38 @@
 require_once __DIR__ . '/../../includes/auth.php';
 require_login();
 
+header('Content-Type: application/json');
+
+function json_response(array $payload, int $status = 200): void
+{
+    http_response_code($status);
+    echo json_encode($payload);
+    exit;
+}
+
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    set_flash('warning', 'Invalid request.');
-    redirect('modules/products/index.php');
+    json_response(['success' => false, 'message' => 'Invalid request.'], 405);
 }
 if (!verify_csrf()) {
-    set_flash('danger', 'Your session expired. Please try again.');
-    redirect('modules/products/index.php');
+    json_response(['success' => false, 'message' => 'Your session expired. Refresh the page and try again.'], 403);
 }
 $id = filter_input(INPUT_POST, 'id', FILTER_VALIDATE_INT);
 if (!$id || $id < 1) {
-    set_flash('danger', 'Invalid product ID.');
-    redirect('modules/products/index.php');
+    json_response(['success' => false, 'message' => 'Invalid product ID.'], 422);
 }
 $products = read_products();
 if ($products === null) {
-    set_flash('danger', 'Unable to read product records.');
-    redirect('modules/products/index.php');
+    json_response(['success' => false, 'message' => 'Unable to read product records.'], 500);
 }
 $found = null;
 foreach ($products as $index => $product) {
     if ((int)($product['id'] ?? 0) === $id) { $found = $index; break; }
 }
 if ($found === null) {
-    set_flash('warning', 'Product not found.');
-    redirect('modules/products/index.php');
+    json_response(['success' => false, 'message' => 'Product not found.'], 404);
 }
 unset($products[$found]);
-if (save_products($products)) set_flash('success', 'Product deleted successfully.');
-else set_flash('danger', 'Could not delete product. Check file permissions.');
-redirect('modules/products/index.php');
+if (!save_products($products)) {
+    json_response(['success' => false, 'message' => 'Could not delete product. Check file permissions.'], 500);
+}
+json_response(['success' => true, 'message' => 'Product deleted successfully.']);
