@@ -34,11 +34,11 @@ $initial = strtoupper(substr((string)$userName, 0, 1));
         <a class="side-link <?= $activeMenu === 'users' ? 'active' : '' ?>" href="<?= escape(url('modules/users/index.php')) ?>"><i class="bi bi-shield-lock"></i> Users</a>
         <a class="side-link" href="<?= escape(url('modules/auth/logout.php')) ?>"><i class="bi bi-box-arrow-right"></i> Logout</a>
     </nav>
-    <div class="sidebar-caption position-absolute bottom-0 p-4 small d-none d-lg-block">Project-Panel · Core PHP</div>
+    <div class="sidebar-caption position-absolute bottom-0 p-4 small d-none d-lg-block">Admin-Panel</div>
 </div>
 <main class="app-main">
     <header class="topbar d-flex align-items-center justify-content-between px-4 px-lg-5">
-        <div class="muted small"><i class="bi bi-house-door me-1"></i> Project-Panel <span class="mx-2">/</span> <?= escape($pageTitle) ?></div>
+        <div class="muted small"><i class="bi bi-house-door me-1"></i> Admin-Panel <span class="mx-2">/</span> <?= escape($pageTitle) ?></div>
         <div class="d-flex align-items-center gap-2">
             <div class="text-end d-none d-sm-block">
                 <div class="fw-semibold small"><?= escape($userName) ?></div>
